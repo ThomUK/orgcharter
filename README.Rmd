@@ -7,9 +7,7 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-",
-  out.width = "100%"
+  comment = "#>"
 )
 ```
 
@@ -27,17 +25,50 @@ This package is a convenient wrapper around the [{DiagrammeR}](https://github.co
 
 Install from [GitHub](https://github.com/) with:
 
-``` r
+```{r eval=FALSE}
 # install.packages("remotes")
 remotes::install_github("ThomUK/orgcharter")
 ```
+
 ## Getting Started
 
 This is a minimal example showing how to build a basic org chart:
 
-```{r example}
+```{r example, eval=FALSE}
 library(orgcharter)
-## basic example code
 
-## COMING SOON!
+## First you'll need some organisation data
+## Often, that will be from a spreadsheet, but to demonstrate, we will do it in code
+## 3 Columns are mandatory, because they define the nodes and edges in the chart
+
+data <- tibble::tribble(
+  ~`Team Member`,       ~Manager,             ~`Reporting Line`,
+  "Dangermouse",        "Jerry",              "solid",
+  "Micky Mouse",        "Dangermouse",        "solid",
+  "Minnie Mouse",       "Dangermouse",        "solid",
+  "Field Mouse",        "Dangermouse",        "solid",
+  "Door Mouse",         "Dangermouse",        "solid",
+  "Peppa Pig",          "Mummy Pig",          "solid",
+  "George",             "Peppa Pig",          "solid",
+  "Little Pig 1",       "Peppa Pig",          "solid",
+  "Little Pig 2",       "Peppa Pig",          "solid",
+  "Little Pig 3",       "Peppa Pig",          "solid",
+  "Daddy Pig",          "Mummy Pig",          "solid",
+  "Inspector Gadget",   "Brains",             "solid",
+  "Brains",             "Captain Pugwash",    "dotted",
+  "Captain Pugwash",    "Yoda",               "solid",
+  "Brains",             "Penny",              "solid",
+  "Mummy Pig",          "Pingu",              "solid",
+  "Penny",              "Pingu",              "dotted",
+  "Jerry",              "Pingu",              "dotted",
+  "Penny",              "Kermit",             "solid",
+  "Jerry",              "Kermit",             "solid",
+)
+
+# Next, prepare the data
+prepared_data <- prepare_org_data(data)
+
+# Finally, make the org chart
+make_org_chart(prepared_data)
+
 ```
