@@ -7,7 +7,11 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%",
+  dev.args = list(png = list(type = "cairo")),
+  fig.retina=3
 )
 ```
 
@@ -34,7 +38,7 @@ remotes::install_github("ThomUK/orgcharter")
 
 This is a minimal example showing how to build a basic org chart:
 
-```{r example, eval=FALSE}
+```{r basic_usage}
 library(orgcharter)
 
 ## First you'll need some organisation data

@@ -66,3 +66,5 @@ prepared_data <- prepare_org_data(data)
 # Finally, make the org chart
 make_org_chart(prepared_data)
 ```
+
+<img src="man/figures/README-basic_usage-1.png" width="100%" />
