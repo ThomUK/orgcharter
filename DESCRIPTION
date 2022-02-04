@@ -1,0 +1,14 @@
+Package: orgcharter
+Title: Make data-driven organisation charts
+Version: 0.0.0.9000
+Authors@R: 
+    person("Tom", "Smith", , "tomsmith_uk@hotmail.com", role = c("aut", "cre"))
+Description: Use a spreadsheet of organisation to build publication-ready 
+  organisation charts.  Clarify and communicate your organisation's structure to
+  everyone who needs to know.  Easily filter the datasource to produce charts of
+  smaller organisation areas (divisions, departments, or projects).
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
