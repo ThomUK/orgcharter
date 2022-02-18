@@ -21,8 +21,10 @@ prepare_org_data <- function(.data){
       )
     ) %>%
     dplyr::mutate(
-      `Team Member` = stringr::str_replace_all(`Team Member`, " ", "\n"),
-      Manager = stringr::str_replace_all(Manager, " ", "\n")
+      `Team Member` = stringr::str_wrap(`Team Member`, 20),
+      Manager = stringr::str_wrap(Manager, 20),
+      `Job Title` = stringr::str_wrap(`Job Title`, 20),
+      label = build_label(`Team Member`, `Job Title`)
     ) %>%
     dplyr::relocate(`Team Member`, Manager)
 
