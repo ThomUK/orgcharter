@@ -18,8 +18,8 @@ make_org_chart <- function(org_data, include_job_titles = TRUE){
       id = as.integer(dplyr::row_number()),
       type = NA, # required for certain graph types
       shape = "rectangle",
-      height = 0.5,
-      width = 1.4
+      height = calc_box_height(label),
+      width = 1.5
     ) %>%
     dplyr::filter(!is.na(people)) %>% #remove the node at the top of the tree (the recursive manager's manager)
     dplyr::select(id, type, people, label, shape, height, width)

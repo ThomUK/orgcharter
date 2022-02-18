@@ -7,6 +7,6 @@
 #'
 build_label <- function(name, job){
 
-  return(paste0(name, "\n", job))
+  return(paste0(name, "\n\n", job))
 
 }
