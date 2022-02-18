@@ -11,8 +11,8 @@ make_org_chart <- function(org_data, include_job_titles = TRUE){
     people = unique(c(org_data$`Team Member`, org_data$Manager)) # de-duplicated list of all names
     ) %>%
 
-    # join job titles in
-    dplyr::left_join(org_data %>% dplyr::select(`Team Member`, `Job Title`, label) %>% unique(), by = c("people" = "Team Member")) %>%
+    # join labels in
+    dplyr::left_join(org_data %>% dplyr::select(`Team Member`, label) %>% unique(), by = c("people" = "Team Member")) %>%
 
     dplyr::mutate(
       id = as.integer(dplyr::row_number()),
@@ -21,6 +21,7 @@ make_org_chart <- function(org_data, include_job_titles = TRUE){
       height = 0.5,
       width = 1.4
     ) %>%
+    dplyr::filter(!is.na(people)) %>% #remove the node at the top of the tree (the recursive manager's manager)
     dplyr::select(id, type, people, label, shape, height, width)
 
   edges <- org_data %>%
@@ -32,6 +33,7 @@ make_org_chart <- function(org_data, include_job_titles = TRUE){
       id = dplyr::row_number(),
       rel = NA # required for certain graph types
     ) %>%
+    dplyr::filter(!is.na(to)) %>% # remove the artificially added edges above top nodes
     dplyr::select(id, from, to, rel, color, penwidth)
 
   g <- DiagrammeR::create_graph(
