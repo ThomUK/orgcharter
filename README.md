@@ -60,11 +60,8 @@ data <- tibble::tribble(
   "Jerry",              "Kermit",             "solid",
 )
 
-# Next, prepare the data
-prepared_data <- prepare_org_data(data)
-
-# Finally, make the org chart
-make_org_chart(prepared_data)
+# Then, make the org chart
+oc_make_org_chart(data)
 ```
 
 <img src="man/figures/README-basic_usage-1.png" width="100%" />
