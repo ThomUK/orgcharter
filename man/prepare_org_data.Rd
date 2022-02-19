@@ -4,11 +4,13 @@
 \alias{prepare_org_data}
 \title{Prepare Organisation Data}
 \usage{
-prepare_org_data(.data)
+prepare_org_data(.data, include_job_titles = TRUE)
 }
 \arguments{
 \item{.data}{A dataframe containing at least 3 columns ("Team Member",
 "Manager", and "Reporting Line")}
+
+\item{include_job_titles}{A boolean for whether to output print job titles}
 }
 \value{
 A prepared dataframe suitable for plotting with the package
