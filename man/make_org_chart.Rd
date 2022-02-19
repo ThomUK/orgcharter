@@ -4,10 +4,10 @@
 \alias{make_org_chart}
 \title{Make Org Chart}
 \usage{
-make_org_chart(org_data)
+make_org_chart(.data)
 }
 \arguments{
-\item{org_data}{A dataframe prepared by prepare_org_data()}
+\item{.data}{A dataframe prepared by prepare_.data()}
 }
 \value{
 A grViz object suitable for plotting

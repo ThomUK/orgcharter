@@ -22,14 +22,14 @@ prepare_org_data <- function(.data, include_job_titles = TRUE){
       )
     ) %>%
     dplyr::mutate(
-      `Team Member` = stringr::str_wrap(`Team Member`, 20),
-      Manager = stringr::str_wrap(Manager, 20),
-      `Job Title` = stringr::str_wrap(`Job Title`, 20),
+      `Team Member` = stringr::str_wrap(.data$`Team Member`, 20),
+      Manager = stringr::str_wrap(.data$Manager, 20),
+      `Job Title` = stringr::str_wrap(.data$`Job Title`, 20),
       label = dplyr::case_when(
         is.na(`Job Title`) | isFALSE(include_job_titles) ~ `Team Member`,
         TRUE ~ paste0(`Team Member`, "\n\n", `Job Title`)
       )
     ) %>%
-    dplyr::relocate(`Team Member`, Manager)
+    dplyr::relocate(.data$`Team Member`, .data$Manager)
 
 }
