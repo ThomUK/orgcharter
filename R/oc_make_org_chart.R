@@ -8,7 +8,19 @@
 #' @export
 oc_make_org_chart <- function(.data, include_job_titles = TRUE){
 
-  prepare_org_data(.data, include_job_titles) %>%
-    make_org_chart()
+  org_data <- prepare_org_data(.data, include_job_titles)
 
+  nodes <- oc_nodes_dtf(org_data)
+
+  edges <- oc_edges_dtf(org_data, nodes)
+
+  g <- DiagrammeR::create_graph(
+    nodes_df = nodes,
+    edges_df = edges,
+    attr_theme = "bt",
+
+  ) %>%
+    DiagrammeR::render_graph()
+
+  return(g)
 }
