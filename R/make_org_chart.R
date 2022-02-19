@@ -3,7 +3,6 @@
 #' @param .data A dataframe prepared by prepare_.data()
 #'
 #' @return A grViz object suitable for plotting
-#' @export
 make_org_chart <- function(.data){
 
   nodes <- data.frame(

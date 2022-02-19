@@ -5,7 +5,6 @@
 #' @param include_job_titles A boolean for whether to output print job titles
 #'
 #' @return A prepared dataframe suitable for plotting with the package
-#' @export
 prepare_org_data <- function(.data, include_job_titles = TRUE){
 
   .data %>%
