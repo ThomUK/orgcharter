@@ -1,11 +1,10 @@
 #' Make Org Chart
 #'
 #' @param org_data A dataframe prepared by prepare_org_data()
-#' @param include_job_titles A boolean for whether to output print job titles
 #'
 #' @return A grViz object suitable for plotting
 #' @export
-make_org_chart <- function(org_data, include_job_titles = TRUE){
+make_org_chart <- function(org_data){
 
   nodes <- data.frame(
     people = unique(c(org_data$`Team Member`, org_data$Manager)) # de-duplicated list of all names
