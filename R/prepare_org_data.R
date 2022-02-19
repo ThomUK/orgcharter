@@ -7,6 +7,10 @@
 #' @return A prepared dataframe suitable for plotting with the package
 prepare_org_data <- function(.data, include_job_titles = TRUE){
 
+  if(!"Job Title" %in% colnames(.data)){
+    .data$`Job Title` <- NA
+  }
+
   .data %>%
     dplyr::mutate(color = dplyr::case_when(
       tolower(`Reporting Line`) == "solid" ~ "black",
