@@ -8,15 +8,15 @@ oc_root_nodes <- function(.data){
 
   # some root nodes are explicitly names (eg. to add a job title)
   named_root_nodes <- .data %>%
-    dplyr::select(`Team Member`, Manager) %>%
+    dplyr::select(.data$`Team Member`, .data$Manager) %>%
     unique() %>%
-    dplyr::filter(is.na(Manager)) %>%
-    dplyr::pull(`Team Member`)
+    dplyr::filter(is.na(.data$Manager)) %>%
+    dplyr::pull(.data$`Team Member`)
 
   # some root nodes are not explicitly named, and are names that only appear
   # in the manager column
-  tm <- .data %>% dplyr::pull(`Team Member`) %>% unique()
-  mgr <- .data %>% dplyr::pull(Manager) %>% unique()
+  tm <- .data %>% dplyr::pull(.data$`Team Member`) %>% unique()
+  mgr <- .data %>% dplyr::pull(.data$Manager) %>% unique()
   unnamed_root_nodes <- dplyr::setdiff(mgr, tm)
 
   # root nodes are the combination of both
