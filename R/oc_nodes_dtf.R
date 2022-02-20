@@ -1,3 +1,10 @@
+#' Create a dataframe of nodes
+#'
+#' @param .data A dataframe of organisation info
+#' @param include_job_titles Optionally exlude job titles, even if they are available
+#'
+#' @return A dataframe of nodes
+#'
 oc_nodes_dtf <- function(.data, include_job_titles = TRUE){
 
   root_nodes <- oc_root_nodes(.data)

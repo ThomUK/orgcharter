@@ -1,3 +1,10 @@
+#' Create a dataframe of edges
+#'
+#' @param .data A dataframe of organisation data
+#' @param nodes A daataframe of nodes calculated based on the organisation data
+#'
+#' @return A dataframe of edges for the organisation
+#'
 oc_edges_dtf <- function(.data, nodes){
 
   edges <- .data %>%
