@@ -1,21 +1,35 @@
-oc_nodes_dtf <- function(.data){
+oc_nodes_dtf <- function(.data, include_job_titles = TRUE){
 
-  nodes <- data.frame(
-    people = unique(c(.data$`Team Member`, .data$Manager)) # de-duplicated list of all names
-  ) %>%
+  root_nodes <- oc_root_nodes(.data)
 
-    # join labels in
-    dplyr::left_join(.data %>% dplyr::select(.data$`Team Member`, .data$label) %>% unique(), by = c("people" = "Team Member")) %>%
+  # create a job title column if it doesn't exist
+  if(!"Job Title" %in% colnames(.data)){
+    .data$`Job Title` <- NA
+  }
 
+  # make a complete list of nodes, including root nodes
+  nodes <- .data %>% dplyr::pull(`Team Member`) %>% c(root_nodes) %>% unique() %>% tibble::as_tibble_col(column_name = "Team Member") %>%
+
+    # join job titles back on
+    dplyr::left_join(.data %>% dplyr::select(`Team Member`, `Job Title`), by = "Team Member") %>%
+    dplyr::distinct() %>%
+    dplyr::mutate(
+      tm_wrap = stringr::str_wrap(`Team Member`, 20),
+      jt_wrap = stringr::str_wrap(`Job Title`, 20),
+      label = dplyr::case_when(
+        is.na(`Job Title`) | isFALSE(include_job_titles) ~ tm_wrap,
+        TRUE ~ paste0(tm_wrap, "\n\n", jt_wrap)
+      )
+    ) %>%
+
+    # add required diagrammer columns
     dplyr::mutate(
       id = as.integer(dplyr::row_number()),
       type = NA, # required for certain graph types
       shape = "rectangle",
-      height = calc_box_height(.data$label),
+      height = calc_box_height(label),
       width = 1.5
-    ) %>%
-    dplyr::filter(!is.na(.data$people)) %>% #remove the node at the top of the tree (the recursive manager's manager)
-    dplyr::select(.data$id, .data$type, .data$people, .data$label, .data$shape, .data$height, .data$width)
+    )
 
   return(nodes)
 
